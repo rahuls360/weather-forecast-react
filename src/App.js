@@ -12,10 +12,10 @@ if (typeof window !== "undefined") {
 class App extends Component {
   state = {
     places: {
-      place1: { name: "Bangalore", id: "zzzz" },
-      place2: { name: "Delhi", id: "zzzz" },
-      place3: { name: "Mumbai", id: "zzzz" },
-      place4: { name: "Chennai", id: "zzzz" }
+      place1: { name: "Bangalore", id: "1277333" },
+      place2: { name: "Delhi", id: "1273294" },
+      place3: { name: "Mumbai", id: "1275339" },
+      place4: { name: "Chennai", id: "1264527" }
     }
   };
 
