@@ -19,9 +19,9 @@ class App extends Component {
     }
   };
 
-  componentDidMount() {
+  displayWeatherOfPlace = id => {
     Axios.get(
-      `http://api.openweathermap.org/data/2.5/forecast?id=1277333&APPID=${
+      `http://api.openweathermap.org/data/2.5/forecast?id=${id}&APPID=${
         process.env.REACT_APP_WEATHER_API
       }`
     )
@@ -31,7 +31,7 @@ class App extends Component {
       .catch(err => {
         console.log(err);
       });
-  }
+  };
 
   render() {
     return (
@@ -44,6 +44,7 @@ class App extends Component {
                   placeInfo={this.state.places[key]}
                   key={key}
                   index={key}
+                  displayWeatherOfPlace={this.displayWeatherOfPlace}
                 />
               );
             })}
