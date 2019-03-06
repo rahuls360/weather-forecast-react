@@ -23,18 +23,18 @@ class App extends Component {
       place3: { name: "Mumbai", id: "1275339" },
       place4: { name: "Chennai", id: "1264527" }
     },
-    weather: {}
+    weather: {},
+    dataPoints: null
   };
 
-  componentDidUpdate(){
-    this.dataPoints = [];
+  loadChartData = () => {
+    let dataPoints = [];
     if(Object.keys(this.state.weather).length !== 0){
       this.state.weather.data.map(individualReading => {
-        return this.dataPoints.push({x: new Date(individualReading.dt), y: individualReading.main.temp -273});
+        return dataPoints.push({x: new Date(individualReading.dt), y: individualReading.main.temp -273});
       });
     }
-    console.log(this.dataPoints);
-    console.log("update");
+    this.setState({dataPoints: dataPoints});
   }
 
 
@@ -51,6 +51,7 @@ class App extends Component {
           data: data.data.list,
         }
         this.setState({weather: weather});
+        this.loadChartData();
       })
       .catch(err => {
         console.log(err);
@@ -76,15 +77,13 @@ class App extends Component {
 			data: [{
 				type: "line",
 				toolTipContent: "Week {x}: {y}%",
-				dataPoints: [
-          { label: "Apple",  y: 10  },
-          { label: "Orange", y: 15  },
-          { label: "Banana", y: 25  },
-          { label: "Mango",  y: 30  },
-          { label: "Grape",  y: 28  }
-      ]
+				dataPoints: this.state.dataPoints
 			}]
-		}
+    }
+    let canvas= null;
+    if(this.state.dataPoints){
+      canvas = <CanvasJSChart options = {options} />
+    }
     return (
       <div id="weather">
         <div className="container">
@@ -102,7 +101,7 @@ class App extends Component {
             <div className="clearfix"></div>
           </div>
           <div className="row">
-          <CanvasJSChart options = {options} />
+            {canvas}
           </div>
         </div>
       </div>
