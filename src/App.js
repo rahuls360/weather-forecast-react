@@ -9,6 +9,10 @@ if (typeof window !== "undefined") {
   require("bootstrap");
 }
 
+var CanvasJSReact = require('./canvasjs.react');
+var CanvasJS = CanvasJSReact.CanvasJS;
+var CanvasJSChart = CanvasJSReact.CanvasJSChart;
+
 class App extends Component {
   state = {
     places: {
@@ -16,8 +20,15 @@ class App extends Component {
       place2: { name: "Delhi", id: "1273294" },
       place3: { name: "Mumbai", id: "1275339" },
       place4: { name: "Chennai", id: "1264527" }
-    }
+    },
+    weather: {}
   };
+
+  componentDidMount(){
+    // <CanvasJSChart options = {options}
+    //         /* onRef = {ref => this.chart = ref} */
+    //     />
+  }
 
   displayWeatherOfPlace = id => {
     Axios.get(
@@ -27,6 +38,11 @@ class App extends Component {
     )
       .then(data => {
         console.log(data);
+        const weather = {
+          name: data.data.city.name,
+          data: data.data.list,
+        }
+        this.setState({weather: weather});
       })
       .catch(err => {
         console.log(err);
