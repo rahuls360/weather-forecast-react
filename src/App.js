@@ -31,7 +31,7 @@ class App extends Component {
     let dataPoints = [];
     if(Object.keys(this.state.weather).length !== 0){
       this.state.weather.data.map(individualReading => {
-        return dataPoints.push({x: new Date(individualReading.dt), y: individualReading.main.temp -273});
+        return dataPoints.push({x: new Date(individualReading.dt*1000), y: individualReading.main.temp -273});
       });
     }
     this.setState({dataPoints: dataPoints});
@@ -76,7 +76,7 @@ class App extends Component {
 			},
 			data: [{
 				type: "line",
-				toolTipContent: "Week {x}: {y}%",
+				toolTipContent: "Temperature: {y}*C",
 				dataPoints: this.state.dataPoints
 			}]
     }
