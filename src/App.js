@@ -24,7 +24,7 @@ class App extends Component {
       place4: { name: "Chennai", id: "1264527" }
     },
     weather: {},
-    dataPoints: null
+    dataPoints: null,
   };
 
   loadChartData = () => {
@@ -64,7 +64,7 @@ class App extends Component {
 			exportEnabled: true,
 			theme: "light2", // "light1", "dark1", "dark2"
 			title:{
-				text: "Weather Forecast"
+				text: "Weather Forecast - " + this.state.weather.name
 			},
 			axisY: {
 				title: "Temperature in *C",
@@ -87,6 +87,7 @@ class App extends Component {
     return (
       <div id="weather">
         <div className="container">
+        <h3 className="text-center">Click on a City</h3>
           <div className="row">
             {Object.keys(this.state.places).map(key => {
               return (
