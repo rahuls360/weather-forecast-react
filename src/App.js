@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import Axios from "axios";
 
+import CanvasJSReact from './canvasjs.react';
+
 import Place from "./components/Place";
 
 import "bootstrap/dist/css/bootstrap.css";
@@ -9,9 +11,9 @@ if (typeof window !== "undefined") {
   require("bootstrap");
 }
 
-var CanvasJSReact = require('./canvasjs.react');
-var CanvasJS = CanvasJSReact.CanvasJS;
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
+
+
 
 class App extends Component {
   state = {
@@ -24,11 +26,6 @@ class App extends Component {
     weather: {}
   };
 
-  componentDidMount(){
-    // <CanvasJSChart options = {options}
-    //         /* onRef = {ref => this.chart = ref} */
-    //     />
-  }
 
   displayWeatherOfPlace = id => {
     Axios.get(
@@ -50,6 +47,35 @@ class App extends Component {
   };
 
   render() {
+    const options = {
+			animationEnabled: true,
+			exportEnabled: true,
+			theme: "light2", // "light1", "dark1", "dark2"
+			title:{
+				text: "Bounce Rate by Week of Year"
+			},
+			axisY: {
+				title: "Bounce Rate",
+				includeZero: false,
+				suffix: "%"
+			},
+			axisX: {
+				title: "Week of Year",
+				prefix: "W",
+				interval: 2
+			},
+			data: [{
+				type: "line",
+				toolTipContent: "Week {x}: {y}%",
+				dataPoints: [
+          { label: "Apple",  y: 10  },
+          { label: "Orange", y: 15  },
+          { label: "Banana", y: 25  },
+          { label: "Mango",  y: 30  },
+          { label: "Grape",  y: 28  }
+      ]
+			}]
+		}
     return (
       <div id="weather">
         <div className="container">
@@ -64,6 +90,10 @@ class App extends Component {
                 />
               );
             })}
+            <div className="clearfix"></div>
+          </div>
+          <div className="row">
+          <CanvasJSChart options = {options} />
           </div>
         </div>
       </div>
