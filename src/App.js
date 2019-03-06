@@ -40,7 +40,7 @@ class App extends Component {
 
   displayWeatherOfPlace = id => {
     Axios.get(
-      `http://api.openweathermap.org/data/2.5/forecast?id=${id}&APPID=${
+      `https://api.openweathermap.org/data/2.5/forecast?id=${id}&APPID=${
         process.env.REACT_APP_WEATHER_API
       }`
     )
