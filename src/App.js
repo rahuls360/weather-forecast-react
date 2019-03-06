@@ -26,6 +26,17 @@ class App extends Component {
     weather: {}
   };
 
+  componentDidUpdate(){
+    this.dataPoints = [];
+    if(Object.keys(this.state.weather).length !== 0){
+      this.state.weather.data.map(individualReading => {
+        return this.dataPoints.push({x: new Date(individualReading.dt), y: individualReading.main.temp -273});
+      });
+    }
+    console.log(this.dataPoints);
+    console.log("update");
+  }
+
 
   displayWeatherOfPlace = id => {
     Axios.get(
@@ -52,16 +63,14 @@ class App extends Component {
 			exportEnabled: true,
 			theme: "light2", // "light1", "dark1", "dark2"
 			title:{
-				text: "Bounce Rate by Week of Year"
+				text: "Weather Forecast"
 			},
 			axisY: {
-				title: "Bounce Rate",
-				includeZero: false,
-				suffix: "%"
+				title: "Temperature in *C",
+				includeZero: false
 			},
 			axisX: {
-				title: "Week of Year",
-				prefix: "W",
+				title: "Day of the Week",
 				interval: 2
 			},
 			data: [{
